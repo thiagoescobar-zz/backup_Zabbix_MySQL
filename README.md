@@ -6,4 +6,4 @@ This script creates a .sql file using mysqldump containing the backup of the 'za
 Then, the script uses tar and bzip2 to compact the database dump.
 
 Usage:
-Just make the script executable (chmod a+x backup.sh) and run it. You will be prompted for the password.
+Just make the script executable (chmod a+x backup.sh) and run it. You will be prompted for the password. You can also use it with the option -p Your_Password
