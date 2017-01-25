@@ -7,7 +7,7 @@
 
 DATE=`date +%Y-%m-%d`
 
-while getopts ":p:d:u:" opt; do
+while getopts ":p:d:u:e:" opt; do
 	case $opt in
 		p)
 			PASS=$OPTARG
@@ -18,6 +18,13 @@ while getopts ":p:d:u:" opt; do
 		u)
 			DBUSER=$OPTARG
 			;;
+		e)
+			EXTENSION=$OPTARG
+			if [ "$EXTENSION" == ".zip" ] ; then 
+				echo "The .zip extension is not supported. Exiting now"
+				exit 1
+			fi
+			;;
 		\?)
 			echo "Invalid option: $OPTARG " >&2
 			echo "exiting now" >&2
@@ -26,18 +33,23 @@ while getopts ":p:d:u:" opt; do
 	esac
 done
 
-if [$DB = ''] ; then
+if [ "$DB" == "" ] ; then
 	DB='zabbix'
 fi
 
 
-if [$DBUSER = ''] ; then
+if [ "$DBUSER" == "" ] ; then
 	DBUSER='zabbix'
 fi
+
+if [ "$EXTENSION" == "" ]; then
+	EXTENSION='.tar.bz2'
+fi
+
 # Generates a .sql file with the backup of the zabbix Database
 mysqldump -u $DBUSER -p$PASS -x -e -B $DB > $PWD/zabbix-$DATE.sql
 
-# Uses tar to create a .tar.bz2 file compacting the backup
-tar -cjf $PWD/zabbix-$DATE.tar.bz2 -C $PWD zabbix-$DATE.sql --remove-files
+# Uses tar to creat a compacted file with the backup. By default, -cjf is used to compact the file with bzip2
+tar caf $PWD/zabbix-$DATE$EXTENSION -C $PWD zabbix-$DATE.sql --remove-files
 
 exit 0

@@ -25,13 +25,17 @@ Or use the option ````-u```` to use a different user. The script defaults the my
 Or use the option ````-d```` to use a different database. The script defaults the database to ````zabbix````
 
     $ ./backup.sh -d mydatabase
+
+Or use the option ````-e```` to use a different extension. The script defaults the backup extension to .tar.bz2. You must use a valid tar extension or the script will only use tar without compression.
+
+    $ ./backup.sh -e .tar.gz
     
 If the user uses an unexpected option, the script outputs the unexpected option and exits. 
 
 #### Restoring the Backup ####
 To restore the backup, you must first decompress the .tar.bz2 file. Then just run the .sql script through mysql
 
-    $ tar jxvf backupFile.tar.bz2
+    $ tar xvjf backupFile.tar.bz2
     $ mysql zabbix < backupFile.sql
 
-where backupFile must be replaced by your backup file name. The file name is in format zabbix-YYYY-mm-dd.tar.bz2
+where backupFile must be replaced by your backup file name. The file name is in format zabbix-YYYY-mm-dd.tar.bz2. You should also use the correct tar arguments for your file extension.
