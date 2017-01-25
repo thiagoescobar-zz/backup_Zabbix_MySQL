@@ -49,7 +49,7 @@ fi
 # Generates a .sql file with the backup of the zabbix Database
 mysqldump -u $DBUSER -p$PASS -x -e -B $DB > $PWD/zabbix-$DATE.sql
 
-# Uses tar to creat a compacted file with the backup. By default, -cjf is used to compact the file with bzip2
+# Uses tar to create a compacted file with the backup. By default, -cjf is used to compact the file with bzip2
 tar caf $PWD/zabbix-$DATE$EXTENSION -C $PWD zabbix-$DATE.sql --remove-files
 
 exit 0
