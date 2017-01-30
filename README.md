@@ -1,9 +1,9 @@
 # backup_Zabbix_MySQL
-Scripts to backup a zabbix application database that uses MySQL (tested using MariaDB)
+Scripts to backup a zabbix application database that uses MySQL (tested using MariaDB).
 
-This script creates a .sql file using mysqldump containing the backup of the 'zabbix' database, which contains configuration data and item history.
+This script (by default) creates a **.sql** file using **mysqldump** containing the backup of the zabbix database, which contains configuration data and item history.
 
-Then, the script uses tar and bzip2 to compact the database dump.
+Then, the script uses *tar* and *bzip2* to compress the database dump.
 
 
 #### Usage ####
@@ -14,11 +14,11 @@ Just make the script executable and run it. You will be prompted for the passwor
 
 
 #### Options ####
-You can use the option ````-p```` to pass your password instead of being prompted to input it later
+You can use the option ````-p```` to pass your password instead of being prompted to input it.
 
     $ ./backup.sh -p mypassword
     
-Or use the option ````-u```` to use a different user. The script defaults the mysql user to ````zabbix````
+Or use the option ````-u```` to use a different user. The script defaults the mysql user to ````zabbix````.
 
     $ ./backup.sh -u myuser
     
@@ -38,4 +38,4 @@ To restore the backup, you must first decompress the .tar.bz2 file. Then just ru
     $ tar xvjf backupFile.tar.bz2
     $ mysql zabbix < backupFile.sql
 
-where backupFile must be replaced by your backup file name. The file name is in format zabbix-YYYY-mm-dd.tar.bz2. You should also use the correct tar arguments for your file extension.
+where ```backupFile``` must be replaced by your backup file name. The file name is in format zabbix-YYYY-mm-dd.tar.bz2. You should also use the correct tar arguments for your file extension.
